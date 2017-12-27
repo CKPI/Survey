@@ -6,6 +6,7 @@
 |------|-----------|--------------|--------|
 | `authenticate` | `credentials` | None | 1025 |
 | `register` | `email, password` | None | 1026 |
+| `confirmEmail` | `token` | None | 1027 |
 | `login` | `credentials, password` | None | 1025 |
 | `restorePassword` | `email` | None | 1025 |
 | `updatePassword` | `token, password` | None | 1027 |
@@ -16,7 +17,7 @@
 |------|-------|
 | 1025 | `ERR_INVALID_CREDENTIALS` |
 | 1026 | `ERR_MUST_BE_AUTHENTICATED` |
-| 1027 | `ERR_INVALID_RESTORE_TOKEN` |
+| 1027 | `ERR_INVALID_TOKEN` |
 
 ## Interface `survey`
 
