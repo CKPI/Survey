@@ -5,3 +5,27 @@ api.auth.errors = Object.assign(Object.create(null), {
   ERR_MUST_BE_AUTHENTICATED: 1026,
   ERR_INVALID_RESTORE_TOKEN: 1027,
 });
+
+api.auth.config = {
+  saltRounds: 10,
+};
+
+api.auth.hash = (password, callback) => {
+  api.bcrypt.genSalt(api.auth.config.saltRounds, (err, salt) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    api.bcrypt.hash(password, salt, (err, password) => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      callback(null, password);
+    });
+  });
+};
+
+api.auth.verify = (password, hashed, callback) =>
+  api.bcrypt.compare(password, hashed, callback);
