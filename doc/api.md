@@ -59,22 +59,24 @@ credentials = {
 
 ```js
 surveyInfo = {
-  id: 'string',
+  id: 'number',
   title: 'string',
   created: 'Date string',
+  completed: 'boolean',
 }
 ```
 
 ### Question
 
 ```js
-question = {
+question = [{
   title: 'string',
   type: 'string',
-  answers: ['string'], // Optional
-  options: {           // Optional
+  answers: ['string or number'],                  // Optional
+  submittedAnswer: ['string or number or array'], // Optional
+  options: {                                      // Optional
     min: 'number',
     max: 'number',
   },
-}
+}]
 ```

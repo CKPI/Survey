@@ -4,7 +4,9 @@
 
 ```js
 survey = {
-  id: 'string',
+  id: 'number',
+  title: 'string',
+  created: 'Date',
   questions: [{
     title: 'string',
     type: 'string',
@@ -25,14 +27,12 @@ survey = {
 
 ```js
 responses = {
-  surveyId: 'string',
-  student: 'id',
+  surveyId: 'number',
+  studentId: 'number',
   answers: [
-    'string',             // For single choice
-    'number',             // For single choice
-    ['string', 'string'], // For multiple choices
+    'string or number or array',
   ],
-  completed: 'bool',
+  completed: 'boolean',
 }
 ```
 
@@ -40,7 +40,7 @@ responses = {
 
 ```js
 student = {
-  id: 'string',
+  id: 'number',
   email: 'string',
   password: 'string',
   info: {
@@ -76,7 +76,7 @@ student = {
 
 ```js
 availableSurvey = {
-  surveyId: 'string',
-  studentId: 'string',
+  surveyId: 'number',
+  studentId: 'number',
 }
 ```
