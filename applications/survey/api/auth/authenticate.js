@@ -4,15 +4,6 @@
     return;
   }
 
-  const credentialTypes = {
-    ipn: 'string',
-    passportSeries: 'string',
-    passportNumber: 'number',
-    passportCreationDate: 'Date',
-    studentCardSeries: 'string',
-    studentCardNumber: 'number',
-  };
-
   const keys = Object.keys(credentials);
 
   // validate credentials:
@@ -23,7 +14,7 @@
 
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
-    const typename = credentialTypes[key];
+    const typename = api.auth.credentialTypes[key];
     if (!typename || !api.validateType(typename, credentials[key])) {
       callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
       return;

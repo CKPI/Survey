@@ -29,3 +29,12 @@ api.auth.hash = (password, callback) => {
 
 api.auth.verify = (password, hashed, callback) =>
   api.bcrypt.compare(password, hashed, callback);
+
+api.auth.credentialTypes = {
+  ipn: 'string',
+  passportSeries: 'string',
+  passportNumber: 'number',
+  passportCreationDate: 'Date',
+  studentCardSeries: 'string',
+  studentCardNumber: 'number',
+};
