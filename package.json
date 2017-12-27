@@ -4,6 +4,7 @@
   "private": true,
   "description": "Survey for CKPI",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "geoip-lite": "^1.2.1",
     "impress": "^0.4.29",
     "mongodb": "^2.2.33",

@@ -19,5 +19,6 @@
 
     'geoip',
     'nodemailer',
+    'bcrypt',
   ]
 }
