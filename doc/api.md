@@ -8,7 +8,7 @@
 | `register` | `email, password` | None | 1026 |
 | `login` | `credentials, password` | None | 1025 |
 | `restorePassword` | `email` | None | 1025 |
-| `updatePassword` | `token, password` | None | 1027|
+| `updatePassword` | `token, password` | None | 1027 |
 
 ## Errors
 
