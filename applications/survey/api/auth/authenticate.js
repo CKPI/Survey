@@ -39,6 +39,11 @@
 
     const student = res[0];
 
+    if (student.email && !student.verification) {
+      callback(api.auth.errors.ERR_ALREADY_REGISTERED);
+      return;
+    }
+
     connection.authId = student.id;
 
     callback();

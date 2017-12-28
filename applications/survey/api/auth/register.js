@@ -8,23 +8,50 @@
     return;
   }
 
-  gs.connection.select({
-    id: connection.authId,
-    category: 'students',
-  }).fetch((err, res) => {
+  function checkEmailUsage(callback) {
+    gs.connection.select({
+      email,
+      category: 'students',
+    }).select((err, res) => {
+      if (err) {
+        application.log.error(
+          `In auth.register register: ${err}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
+
+      if (res.length !== 0 && !res[0].verification) {
+        callback(api.auth.errors.ERR_EMAIL_IN_USE);
+        return;
+      }
+      callback();
+    });
+  }
+
+  checkEmailUsage((err) => {
     if (err) {
-      application.log.error(
-        `In auth.register register: ${err}`
-      );
-      callback(api.jstp.ERR_INTERNAL_API_ERROR);
+      callback(err);
       return;
     }
+    gs.connection.select({
+      id: connection.authId,
+      category: 'students',
+    }).fetch((err, res) => {
+      if (err) {
+        application.log.error(
+          `In auth.register register: ${err}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
 
-    const student = res[0];
+      const student = res[0];
 
-    student.email = email;
+      student.email = email;
 
-    hashPassword(student);
+      hashPassword(student);
+    });
   });
 
   function hashPassword(student) {
