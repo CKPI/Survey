@@ -77,7 +77,8 @@
       students.forEach((student) => {
         const availableSurvey = {
           surveyid: survey.id,
-          studentid: student.id
+          studentid: student.id,
+          category: 'availableSurveys'
         }
 
         gs.connection.create(availableSurvey, (error) => {
