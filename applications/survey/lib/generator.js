@@ -1,7 +1,7 @@
-(hashMap) => {
+(hashMap, callback) => {
   for (const [teacher, subjectInfo] of hashMap) {
     for (const [subject, groups] of subjectInfo) {
-      genereateSurvey(teacher, subject, groups);
+      generateSurvey(teacher, subject, groups);
     }
   }
 
@@ -79,7 +79,7 @@
           surveyid: survey.id,
           studentid: student.id,
           category: 'availableSurveys'
-        }
+        };
 
         gs.connection.create(availableSurvey, (error) => {
           if (error) {
