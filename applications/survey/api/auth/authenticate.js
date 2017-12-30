@@ -15,15 +15,17 @@
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const typename = api.auth.credentialTypes[key];
-    if (!typename || !api.validateType(typename, credentials[key])) {
+    let ok = false;
+    [credentials[key], ok] = api.validateType(typename, credentials[key]);
+    if (!typename || !ok) {
       callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
       return;
     }
   }
 
-  credentials.category = 'students';
+  const query = api.auth.queryFromCredentials(credentials);
 
-  gs.connection.select(credentials).fetch((err, res) => {
+  gs.connection.select(query).fetch((err, res) => {
     if (err) {
       application.log.error(
         `In auth.authenticate gs.select: ${err}`

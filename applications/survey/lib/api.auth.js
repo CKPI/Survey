@@ -40,3 +40,28 @@ api.auth.credentialTypes = {
   studentCardSeries: 'string',
   studentCardNumber: 'number',
 };
+
+api.auth.credentialAliases = {
+  email: 'email',
+  ipn: 'info.ipn',
+  passportSeries: 'info.passport.series',
+  passportNumber: 'info.passport.number',
+  passportCreationDate: 'info.passport.issued',
+  studentCardSeries: 'info.studentCard.series',
+  studentCardNumber: 'info.studentCard.number',
+};
+
+api.auth.credentialAliasesKeys = Object.keys(api.auth.credentialAliases);
+
+api.auth.queryFromCredentials = (credentials) => {
+  const query = {
+    category: 'students',
+  };
+  api.auth.credentialAliasesKeys.forEach((key) => {
+    const queryKey = api.auth.credentialAliases[key];
+    if (credentials[key]) {
+      query[queryKey] = credentials[key];
+    }
+  });
+  return query;
+};

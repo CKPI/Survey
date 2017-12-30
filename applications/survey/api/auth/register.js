@@ -12,7 +12,7 @@
     gs.connection.select({
       email,
       category: 'students',
-    }).select((err, res) => {
+    }).fetch((err, res) => {
       if (err) {
         application.log.error(
           `In auth.register register: ${err}`

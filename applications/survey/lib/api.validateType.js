@@ -1,10 +1,12 @@
 const typeValidators = {
-  'string': value => typeof value === 'string',
-  'number': value => typeof value === 'number',
-  'object': value => typeof value === 'object',
-  'Date': value =>
+  string: value => [value, typeof value === 'string'],
+  number: value => [value, typeof value === 'number'],
+  object: value => [value, typeof value === 'object'],
+  Date: value => [
+    new Date(value),
     typeof value === 'string' && !Number.isNaN(Date.parse(value)),
+  ],
 };
 
 api.validateType = (typename, value) =>
-  typeValidators[typename](value);
+  typeof typename === 'string' && typeValidators[typename](value);

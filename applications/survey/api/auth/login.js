@@ -4,24 +4,31 @@
     return;
   }
 
-  const keys = Object.keys(credentials);
+  if (!credentials.email) {
+    const keys = Object.keys(credentials);
 
-  // validate credentials:
-  if (keys.length !== 1) {
+    // validate credentials:
+    if (keys.length !== 1) {
+      callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
+      return;
+    }
+
+    const key = keys[0];
+    const typename = api.auth.credentialTypes[key];
+    let ok = false;
+    [credentials[key], ok] = api.validateType(typename, credentials[key]);
+    if (!typename || !ok) {
+      callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
+      return;
+    }
+  } else if (typeof credentials.email !== 'string') {
     callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
     return;
   }
 
-  const key = keys[0];
-  const typename = api.auth.credentialTypes[key];
-  if (!typename || !api.validateType(typename, credentials[key])) {
-    callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
-    return;
-  }
+  const query = api.auth.queryFromCredentials(credentials);
 
-  credentials.category = 'students';
-
-  gs.connection.select(credentials).fetch((err, res) => {
+  gs.connection.select(query).fetch((err, res) => {
     if (err) {
       application.log.error(
         `In auth.login gs.select: ${err}`
