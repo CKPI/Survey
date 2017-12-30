@@ -16,7 +16,7 @@
     slowTime:  '1s',
     timeout:   '30s',
     keepAlive: '5s',
-    applications: ['Survey']
+    applications: ['survey']
   },
 
   rpc: {
@@ -24,7 +24,7 @@
     transport: 'tcp',
     address:   '*',
     ports:     [81],
-    applications: ['Survey'],
+    applications: ['survey'],
     heartbeat: '2s'
   }
 
