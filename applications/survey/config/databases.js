@@ -1,8 +1,8 @@
 {
 
   cms: {
-    alias: 'Survey',
-    url: 'mongodb://127.0.0.1:27017/Survey',
+    alias: 'survey',
+    url: 'mongodb://127.0.0.1:27017/survey',
     slowTime: '2s'
   },
 
