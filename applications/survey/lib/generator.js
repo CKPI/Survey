@@ -84,7 +84,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
         gs.connection.create(availableSurvey, (error) => {
           if (error) {
             callback(
-              `In survey genereator generateSurvey gs.create: ${error}`
+              `In survey genereator enableSurvey gs.create: ${error}`
             );
             return;
           }
