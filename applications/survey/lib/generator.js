@@ -1,5 +1,5 @@
-(hashMap, callback) => {
-  for (const [teacher, subjectInfo] of hashMap) {
+api.generateSurveys = (teachersSubjects, callback) => {
+  for (const [teacher, subjectInfo] of teachersSubjects) {
     for (const [subject, groups] of subjectInfo) {
       generateSurvey(teacher, subject, groups);
     }
@@ -16,8 +16,8 @@
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
-          teacher: teacher,
-          subject: subject,
+          teacher,
+          subject,
         }
       },
       {
@@ -25,8 +25,8 @@
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
-          teacher: teacher,
-          subject: subject,
+          teacher,
+          subject,
         }
       },
       {
@@ -34,8 +34,8 @@
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
-          teacher: teacher,
-          subject: subject,
+          teacher,
+          subject,
         }
       },
       {
@@ -43,18 +43,18 @@
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
-          teacher: teacher,
-          subject: subject,
+          teacher,
+          subject,
         }
       }
     ];
 
     gs.connection.create(survey, (error) => {
       if (error) {
-        application.log.error(
+        callback(
           `In survey genereator generateSurvey gs.create: ${error}`
         );
-        return callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
       }
 
       groups.forEach(group => enableSurvey(survey, group));
@@ -64,29 +64,29 @@
 
   function enableSurvey(survey, group) {
     gs.connection.select({
-      info: { group: group },
+      'info.group': group,
       category: 'students'
     }).fetch((error, students) => {
       if (error) {
-        application.log.error(
-          `In survey generator enable gs.select: ${error}`
+        callback(
+          `In survey generator enableSurvey gs.select: ${error}`
         );
-        return callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
       }
 
       students.forEach((student) => {
         const availableSurvey = {
-          surveyid: survey.id,
-          studentid: student.id,
+          surveyId: survey.id,
+          studentId: student.id,
           category: 'availableSurveys'
         };
 
         gs.connection.create(availableSurvey, (error) => {
           if (error) {
-            application.log.error(
+            callback(
               `In survey genereator generateSurvey gs.create: ${error}`
             );
-            return callback(api.jstp.ERR_INTERNAL_API_ERROR);
+            return;
           }
 
           callback(null);
@@ -94,4 +94,4 @@
       });
     });
   }
-}
+};
