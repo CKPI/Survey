@@ -69,7 +69,7 @@ surveyInfo = {
 ### Question
 
 ```js
-question = [{
+question = {
   title: 'string',
   type: 'string',
   answers: ['string or number'],                  // Optional
@@ -78,5 +78,5 @@ question = [{
     min: 'number',
     max: 'number',
   },
-}]
+}
 ```
