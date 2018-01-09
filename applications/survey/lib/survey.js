@@ -8,3 +8,17 @@ api.survey.errors = Object.assign(Object.create(null), {
   ERR_QUESTION_NOT_FOUND: 1027,
   ERR_INVALID_ANSWER: 1028,
 });
+
+api.survey.checkAvailability = (studentId, surveyId, callback) => {
+  gs.connection.select({
+    studentId,
+    surveyId,
+    category: 'availableSurveys',
+  }).fetch((error, [survey]) => {
+    if (error) {
+      callback(error);
+      return;
+    }
+    callback(null, !!survey);
+  });
+};

@@ -9,37 +9,57 @@
     return;
   }
 
+  api.survey.checkAvailability(connection.studentId, surveyId,
+    (error, available) => {
+      if (error) {
+        application.log.error(
+          `In survey answer checkAvailability: ${error}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
 
-  gs.connection.select({
-    id: surveyId,
-    category: 'surveys',
-  }).fetch((error, [survey]) => {
-    if (error) {
-      application.log.error(
-        `In survey answer gs.select: ${error}`
-      );
-      callback(api.jstp.ERR_INTERNAL_API_ERROR);
-      return;
+      if (!available) {
+        callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
+        return;
+      }
+
+      fetchSurvey();
     }
+  );
 
-    if (!survey) {
-      callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
-      return;
-    }
+  function fetchSurvey() {
+    gs.connection.select({
+      id: surveyId,
+      category: 'surveys',
+    }).fetch((error, [survey]) => {
+      if (error) {
+        application.log.error(
+          `In survey answer gs.select: ${error}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
 
-    if (!survey.questions[questionIndex]) {
-      callback(api.survey.errors.ERR_QUESTION_NOT_FOUND);
-      return;
-    }
+      if (!survey) {
+        callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
+        return;
+      }
 
-    const userResponse = {
-      surveyId: survey.id,
-      studentId: connection.studentId,
-      category: 'responses',
-    };
+      if (!survey.questions[questionIndex]) {
+        callback(api.survey.errors.ERR_QUESTION_NOT_FOUND);
+        return;
+      }
 
-    submitResponse(userResponse, survey);
-  });
+      const userResponse = {
+        surveyId: survey.id,
+        studentId: connection.studentId,
+        category: 'responses',
+      };
+
+      submitResponse(userResponse, survey);
+    });
+  }
 
   function submitResponse(userResponse, survey) {
     gs.connection.select(userResponse).fetch((error, [response]) => {
