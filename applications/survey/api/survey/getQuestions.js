@@ -9,25 +9,46 @@
     return;
   }
 
-  gs.connection.select({
-    id: surveyId,
-    category: 'surveys',
-  }).fetch((error, [survey]) => {
-    if (error) {
-      application.log.error(
-        `In survey getQuestions gs.select: ${error}`
-      );
-      callback(api.jstp.ERR_INTERNAL_API_ERROR);
-      return;
-    }
+  api.survey.checkAvailability(connection.studentId, surveyId,
+    (error, available) => {
+      if (error) {
+        application.log.error(
+          `In survey getQuestions checkAvailability: ${error}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
 
-    if (!survey) {
-      callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
-      return;
-    }
+      if (!available) {
+        callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
+        return;
+      }
 
-    fetchResponse(survey);
-  });
+      fetchSurvey();
+    }
+  );
+
+  function fetchSurvey() {
+    gs.connection.select({
+      id: surveyId,
+      category: 'surveys',
+    }).fetch((error, [survey]) => {
+      if (error) {
+        application.log.error(
+          `In survey getQuestions gs.select: ${error}`
+        );
+        callback(api.jstp.ERR_INTERNAL_API_ERROR);
+        return;
+      }
+
+      if (!survey) {
+        callback(api.survey.errors.ERR_SURVEY_NOT_FOUND);
+        return;
+      }
+
+      fetchResponse(survey);
+    });
+  }
 
   function fetchResponse(survey) {
     gs.connection.select({
