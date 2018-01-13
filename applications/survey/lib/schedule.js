@@ -85,4 +85,4 @@ api.getFromSchedule = (callback) => {
       );
     });
   }
-}
+};
