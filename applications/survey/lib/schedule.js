@@ -1,4 +1,4 @@
-(callback) => {
+api.getFromSchedule = (callback) => {
   const URL_API_TEACHERS = 'https://api.rozklad.org.ua/v2/teachers';
   const ITEMS_PER_PAGE = 100;
 
@@ -13,7 +13,9 @@
 
     api.https.get(url, (res) => {
       if (res.statusCode !== 200) {
-        application.log.error(res.statusMessage);
+        application.log.error(
+          `In lib schedule getTeachers ${url.href}: ${res.statusMessage}`
+        );
         callback(res.statusMessage);
         return;
       }
@@ -48,7 +50,9 @@
 
     api.https.get(url, (res) => {
       if (res.statusCode !== 200) {
-        application.log.error(res.statusMessage);
+        application.log.error(
+          `In lib schedule getGroups ${url.href}: ${res.statusMessage}`
+        );
         callback(null);
         return;
       }
