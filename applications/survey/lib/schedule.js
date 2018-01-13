@@ -69,13 +69,16 @@
   function addNewGroups(subjects, data) {
     data.forEach((lesson) => {
       const subject = lesson.lesson_full_name;
-      const groups = subjects.get(subject) || new Set();
+      let groups = subjects.get(subject);
+
+      if (!groups) {
+        groups = new Set();
+        subjects.set(subject, groups);
+      }
 
       lesson.groups.forEach(
         groupName => groups.add(groupName.group_full_name)
       );
-
-      subjects.set(subject, groups);
     });
   }
 }
