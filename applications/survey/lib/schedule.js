@@ -9,7 +9,7 @@ api.getFromSchedule = (callback) => {
 
   function getTeachers(offset) {
     const url = new api.url.URL(URL_API_TEACHERS);
-    url.search = `?filter={"offset":${offset}}`;
+    url.searchParams.set('filter', `{"offset":${offset}}`);
 
     api.https.get(url, (res) => {
       if (res.statusCode !== 200) {
