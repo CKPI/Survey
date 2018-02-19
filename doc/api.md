@@ -44,6 +44,8 @@
 
 ### Credentials
 
+`authenticate` expects exactly 3 fields from the following list:
+
 ```js
 credentials = {
   ipn: 'string',
@@ -52,6 +54,20 @@ credentials = {
   passportCreationDate: 'Date string',
   studentCardSeries: 'string',
   studentCardNumber: 'number',
+}
+```
+
+`login` expects exactly 1 field from the following list:
+
+```js
+credentials = {
+  ipn: 'string',
+  passportSeries: 'string',
+  passportNumber: 'number',
+  passportCreationDate: 'Date string',
+  studentCardSeries: 'string',
+  studentCardNumber: 'number',
+  email: 'string',
 }
 ```
 
