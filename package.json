@@ -6,9 +6,9 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "geoip-lite": "^1.2.1",
-    "impress": "^0.4.29",
-    "mongodb": "^2.2.33",
-    "nodemailer": "^4.4.1"
+    "impress": "^0.4.31",
+    "mongodb": "^2.2.34",
+    "nodemailer": "^4.4.2"
   },
   "engines": {
     "node": ">=0.6.0"
@@ -18,8 +18,8 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "eslint": "^4.14.0",
+    "eslint": "^4.18.0",
     "eslint-plugin-impress": "^2.1.0",
-    "tap": "^11.0.1"
+    "tap": "^11.1.1"
   }
 }
