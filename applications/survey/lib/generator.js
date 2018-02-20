@@ -1,12 +1,26 @@
 api.generateSurveys = (teachersSubjects, callback) => {
-  for (const [teacher, subjectInfo] of teachersSubjects) {
-    for (const [subject, groups] of subjectInfo) {
-      generateSurvey(teacher, subject, groups);
-    }
+  api.metasync.each(
+    [...teachersSubjects.entries()],
+    processTeacher,
+    callback
+  );
+
+  function processTeacher([teacher, subjectInfo], callback) {
+    const processSubject = ([subject, groups], callback) => {
+      generateSurvey(teacher, subject, [...groups.values()], callback);
+    };
+
+    api.metasync.each(
+      [...subjectInfo.entries()],
+      processSubject,
+      callback
+    );
   }
 
-  function generateSurvey(teacher, subject, groups) {
+  function generateSurvey(teacher, subject, groups, callback) {
     const survey = {
+      title: `Оценка ${teacher} ${subject}`,
+      created: new Date(),
       category: 'surveys'
     };
 
@@ -57,12 +71,15 @@ api.generateSurveys = (teachersSubjects, callback) => {
         return;
       }
 
-      groups.forEach(group => enableSurvey(survey, group));
-      callback(null);
+      const processGroup = (group, callback) => {
+        enableSurvey(survey, group, callback);
+      };
+
+      api.metasync.each(groups, processGroup, callback);
     });
   }
 
-  function enableSurvey(survey, group) {
+  function enableSurvey(survey, group, callback) {
     gs.connection.select({
       'info.group': group,
       category: 'students'
@@ -74,7 +91,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
         return;
       }
 
-      students.forEach((student) => {
+      const processStudent = (student, callback) => {
         const availableSurvey = {
           surveyId: survey.id,
           studentId: student.id,
@@ -91,7 +108,9 @@ api.generateSurveys = (teachersSubjects, callback) => {
 
           callback(null);
         });
-      });
+      };
+
+      api.metasync.each(students, processStudent, callback);
     });
   }
 };
