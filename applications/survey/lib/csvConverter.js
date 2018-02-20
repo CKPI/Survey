@@ -25,7 +25,7 @@ const fields = [
   ['lastName'],
   ['middleName'],
   ['born', 'date'],
-  ['ipn', 'number'],
+  ['ipn'],
   ['documentType'],
   ['passportSeries'],
   ['passportNumber', 'number'],
@@ -69,7 +69,7 @@ const structurizeStudent = (student) => ({
 });
 
 api.survey.csv.parseLine = (line) => {
-  const entries = line.split(';').map(entry => entry.trim());
+  const entries = line.split(',').map(entry => entry.trim());
   const student = {};
   fields.forEach((field, index) => {
     const transformation = transformations[field.type];
