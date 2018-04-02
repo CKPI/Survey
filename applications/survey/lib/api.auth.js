@@ -3,7 +3,7 @@ api.auth = {};
 api.auth.errors = Object.assign(Object.create(null), {
   ERR_INVALID_CREDENTIALS:   1025,
   ERR_MUST_BE_AUTHENTICATED: 1026,
-  ERR_INVALID_RESTORE_TOKEN: 1027,
+  ERR_INVALID_TOKEN:         1027,
   ERR_ALREADY_REGISTERED:    1028,
   ERR_EMAIL_IN_USE:          1029,
 });
