@@ -36,13 +36,14 @@ responses = {
 }
 ```
 
-### `students`
+### `users`
 
 ```js
-student = {
+user = {
   id: 'number',
   email: 'string',
   password: 'string',
+  admin: 'boolean',
   info: {
     name: {
       first: 'string',
