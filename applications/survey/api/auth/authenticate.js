@@ -7,7 +7,7 @@
   const keys = Object.keys(credentials);
 
   // validate credentials:
-  if (keys.length !== 3) {
+  if (keys.length !== application.config.client.requiredAmountOfQuestions) {
     callback(api.auth.errors.ERR_INVALID_CREDENTIALS);
     return;
   }

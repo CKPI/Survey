@@ -82,7 +82,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
   function enableSurvey(survey, group, callback) {
     gs.connection.select({
       'info.group': group,
-      category: 'students'
+      category: 'users'
     }).fetch((error, students) => {
       if (error) {
         callback(

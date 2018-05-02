@@ -1,11 +1,11 @@
 (callback) => {
-  if (!connection.studentId) {
+  if (!connection.userId) {
     callback(api.survey.errors.ERR_MUST_BE_LOGGED_IN);
     return;
   }
 
   gs.connection.select({
-    studentId: connection.studentId,
+    studentId: connection.userId,
     category: 'availableSurveys',
   }).fetch(processAvailableSurveys);
 
@@ -45,7 +45,7 @@
   function fetchResponses(survey, callback) {
     gs.connection.select({
       surveyId: survey.id,
-      studentId: connection.studentId,
+      studentId: connection.userId,
       category: 'responses',
     }).fetch((error, [response]) => {
       if (error) {

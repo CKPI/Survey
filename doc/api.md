@@ -54,7 +54,7 @@
 
 | Name | Arguments | Return value | Errors |
 |------|-----------|--------------|--------|
-| `createSurvey` | `title, questions` | `surveyId` | 1025 |
+| `createSurvey` | `title, questions, groups` | `surveyId` | 1025 |
 | `getCreatedSurveys` | None | `SurveyInfo[]` | 1025 |
 | `deleteSurvey` | `surveyId` | None | 1025, 1026 |
 | `editSurvey` | `surveyId, title` | None | 1025, 1026 |
