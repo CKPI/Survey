@@ -25,7 +25,7 @@
   });
 
   function generateRestorationCode(student) {
-    const code = api.common.generateKey(32, api.common.ALPHA_DIGIT);
+    const code = api.common.generateKey(8, api.common.ALPHA_DIGIT);
     student.restoration = code;
 
     sendEmail(code);
