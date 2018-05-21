@@ -1,7 +1,7 @@
 (client, callback) =>  {
   const purgeDB = (data, callback) => {
     const categories =
-      ['surveys', 'availableSurveys', 'students', 'responses'];
+      ['surveys', 'availableSurveys', 'users', 'responses'];
 
     const purgeCategory = (category, callback) => {
       gs.connection.delete({ category }, callback);
@@ -15,7 +15,7 @@
     const insertStudent = (student, callback) => {
       const entry = {
         info: student,
-        category: 'students',
+        category: 'users',
       };
       gs.connection.create(entry, callback);
     };
@@ -25,6 +25,37 @@
   const generateSurveys = (data, callback) => {
     api.getFromSchedule((teacherSubjects) => {
       api.generateSurveys(teacherSubjects, callback);
+    });
+  };
+
+  const createAdmin = (data, callback) => {
+    api.auth.hash(application.config.admin.password, (error, hash) => {
+      if (error) {
+        application.log.error(
+          `In api/testData.json createAdmin hashPassword: ${error}`
+        );
+        callback(error);
+        return;
+      }
+
+      const admin = {
+        password: hash,
+        email: application.config.admin.email,
+        admin: true,
+        category: 'users',
+      };
+
+      gs.connection.create(admin, (error) => {
+        if (error) {
+          application.log.error(
+            `In api/testData.json createAdmin gs.create: ${error}`
+          );
+          callback(error);
+          return;
+        }
+
+        callback(null);
+      });
     });
   };
 
@@ -39,7 +70,13 @@
       }
 
       generateSurveys(null, (error) => {
-        callback({ result: error || 'ok' });
+        if (error) {
+          callback({ result: error });
+        }
+
+        createAdmin(null, (error) => {
+          callback({ result: error || 'ok' });
+        });
       });
     });
   });

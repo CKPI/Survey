@@ -55,7 +55,7 @@ api.auth.credentialAliasesKeys = Object.keys(api.auth.credentialAliases);
 
 api.auth.queryFromCredentials = (credentials) => {
   const query = {
-    category: 'students',
+    category: 'users',
   };
   api.auth.credentialAliasesKeys.forEach((key) => {
     const queryKey = api.auth.credentialAliases[key];

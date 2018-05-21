@@ -26,7 +26,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
 
     survey.questions = [
       {
-        title: 'Оцените впечатление от предмета.',
+        title: 'оцініть враження від предмета',
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
@@ -35,7 +35,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
         }
       },
       {
-        title: 'Оцените компетентность преподавателя.',
+        title: 'Оцініть компетентність викладача',
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
@@ -44,7 +44,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
         }
       },
       {
-        title: 'Оцените требовательность.',
+        title: 'Оцініть вимогливість викладача',
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
@@ -53,7 +53,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
         }
       },
       {
-        title: 'Оцените отношение преподавателя к студентам.',
+        title: 'Оцініть відношення викладача до студентів',
         type: 'chooseOne',
         answers: ['1', '2', '3', '4', '5'],
         info: {
@@ -82,7 +82,7 @@ api.generateSurveys = (teachersSubjects, callback) => {
   function enableSurvey(survey, group, callback) {
     gs.connection.select({
       'info.group': group,
-      category: 'students'
+      category: 'users'
     }).fetch((error, students) => {
       if (error) {
         callback(

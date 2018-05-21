@@ -6,7 +6,7 @@
 
   gs.connection.select({
     verification: token,
-    category: 'students',
+    category: 'users',
   }).fetch((err, res) => {
     if (err) {
       application.log.error(
@@ -26,7 +26,7 @@
     delete student.verification;
 
     delete connection.authId;
-    connection.studentId = student.id;
+    connection.userId = student.id;
 
     gs.connection.update(student, (err) => {
       if (err) {

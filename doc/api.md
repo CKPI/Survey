@@ -40,6 +40,38 @@
 | 1027 | `ERR_QUESTION_NOT_FOUND` |
 | 1028 | `ERR_INVALID_ANSWER` |
 
+## Interface `config`
+
+### Mehods
+
+| Name | Arguments | Return value | Errors |
+|------|-----------|--------------|--------|
+| `get` | None | `Config` | None |
+
+## Interface `admin`
+
+### Methods
+
+| Name | Arguments | Return value | Errors |
+|------|-----------|--------------|--------|
+| `createSurvey` | `title, questions, groups` | `surveyId` | 1025 |
+| `getCreatedSurveys` | None | `SurveyInfo[]` | 1025 |
+| `deleteSurvey` | `surveyId` | None | 1025, 1026 |
+| `editSurvey` | `surveyId, title` | None | 1025, 1026 |
+| `getResults` | `surveyId` | `SurveyResults` | 1025, 1026 |
+| `createQuestion` | `surveyId, question` | None | 1025, 1026, 1027 |
+| `editQuestion` | `surveyId, questionIndex, question` | None | 1025, 1026, 1027 |
+| `deleteQuestion` | `surveyId, questionIndex` | None | 1025, 1026, 1027 |
+| `importUsers` | `users` | None | 1025 |
+
+### Errors
+
+| Code | Error |
+|------|-------|
+| 1025 | `ERR_NOT_AUTORIZED` |
+| 1026 | `ERR_SURVEY_NOT_FOUND` |
+| 1027 | `ERR_QUESTION_NOT_FOUND` |
+
 ## Data types
 
 ### Credentials
@@ -95,4 +127,22 @@ question = {
     max: 'number',
   },
 }
+```
+
+### Config
+
+```js
+config = {
+  acceptableQuestions: '[string, type]',
+  requiredAmountOfQuestions: 'number[]',
+  darkMode: Boolean,
+}
+```
+
+### SurveyResults
+
+```js
+surveyResults = [
+  [[ Object, 'number' ]],
+]
 ```

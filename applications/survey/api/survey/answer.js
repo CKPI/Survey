@@ -4,12 +4,12 @@
     return;
   }
 
-  if (!connection.studentId) {
+  if (!connection.userId) {
     callback(api.survey.errors.ERR_MUST_BE_LOGGED_IN);
     return;
   }
 
-  api.survey.checkAvailability(connection.studentId, surveyId,
+  api.survey.checkAvailability(connection.userId, surveyId,
     (error, available) => {
       if (error) {
         application.log.error(
@@ -53,7 +53,7 @@
 
       const userResponse = {
         surveyId: survey.id,
-        studentId: connection.studentId,
+        studentId: connection.userId,
         category: 'responses',
       };
 

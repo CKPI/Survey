@@ -58,7 +58,8 @@
         return;
       }
 
-      connection.studentId = student.id;
+      connection.admin = !!student.admin;
+      connection.userId = student.id;
 
       callback();
     });

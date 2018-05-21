@@ -6,7 +6,7 @@
 
   gs.connection.select({
     restoration: token,
-    category: 'students',
+    category: 'users',
   }).fetch((err, res) => {
     if (err) {
       application.log.error(

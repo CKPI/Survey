@@ -6,7 +6,7 @@
 
   gs.connection.select({
     email,
-    category: 'students',
+    category: 'users',
   }).fetch((err, res) => {
     if (err) {
       application.log.error(
